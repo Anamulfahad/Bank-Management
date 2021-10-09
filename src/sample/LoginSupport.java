@@ -15,7 +15,7 @@ public class LoginSupport {
 //        System.out.println(isFileEmpty);
     }
 
-//    checks both phone number and password
+    //    checks both phone number and password
     boolean accountExist(String s1, String s2) throws IOException, ClassNotFoundException {
         if (isFileEmpty) return false;
 
@@ -32,18 +32,19 @@ public class LoginSupport {
     }
 
     void addAccount(String s1, String s2) throws IOException, ClassNotFoundException {
-        FileOutputStream stream = new FileOutputStream("src/sample/loginDetails.txt");
-        ObjectOutputStream outputStream = new ObjectOutputStream(stream);
         HashMap<String, String> hashMap;
 
         if (isFileEmpty) {
             hashMap = new HashMap<>();
-        }else {
+        } else {
             FileInputStream stream2 = new FileInputStream("src/sample/loginDetails.txt");
             ObjectInputStream inputStream = new ObjectInputStream(stream2);
 
             hashMap = (HashMap<String, String>) inputStream.readObject();
         }
+
+        FileOutputStream stream = new FileOutputStream("src/sample/loginDetails.txt");
+        ObjectOutputStream outputStream = new ObjectOutputStream(stream);
 
         hashMap.put(s1, s2);
         outputStream.writeObject(hashMap);

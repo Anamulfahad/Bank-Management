@@ -56,6 +56,8 @@ public class SignUpForm {
         LoginSupport loginSupport = new LoginSupport();
         loginSupport.addAccount(s2, s3);
 
+        comment.setText("account added");
+
 //        from here this part will take u to userForm
 //        write your code here ...
     }
@@ -70,7 +72,7 @@ public class SignUpForm {
         writer = new BufferedWriter(outputStreamWriter);
     }
 
-    private boolean chkExist(String s) throws IOException, ClassNotFoundException {
+    private boolean chkExist(String s) throws IOException{
         boolean isFileEmpty = false;
 
         BufferedReader reader = new BufferedReader(new FileReader("src/sample/loginDetails.txt"));
@@ -82,7 +84,12 @@ public class SignUpForm {
         FileInputStream stream = new FileInputStream("src/sample/loginDetails.txt");
         ObjectInputStream inputStream = new ObjectInputStream(stream);
 
-        HashMap<String, String> hashMap = (HashMap<String, String>) inputStream.readObject();
+        HashMap<String, String> hashMap = null;
+        try {
+            hashMap = (HashMap<String, String>) inputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            System.out.println("at line 91");
+        }
 
         return hashMap.containsKey(s);
     }
