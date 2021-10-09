@@ -28,8 +28,8 @@ public class SignUpForm {
 
     @FXML
     void signUp() throws IOException, ClassNotFoundException {
-        String s1 = name.getText();
-        String s2 = phoneNumber.getText();
+        String s1 = name.getText().trim();
+        String s2 = phoneNumber.getText().trim();
         String s3 = password.getText();
 
 //        check if the phone number exists in database
