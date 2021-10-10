@@ -39,9 +39,9 @@ public class LoginController {
             System.out.println("login successful");
             comment.setText("valid");
 
-            fetchInfo(s1);
+//            fetchInfo(s1);
 
-            userView(event);
+            changeToUserView(event);
         } else comment.setText("invalid");
     }
 
@@ -54,7 +54,7 @@ public class LoginController {
         window.show();
     }
 
-    private void userView(ActionEvent event) throws IOException {
+    private void changeToUserView(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("UserView.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
