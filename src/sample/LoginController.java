@@ -36,12 +36,18 @@ public class LoginController {
 
         LoginSupport loginSupport = new LoginSupport();
         if (loginSupport.accountExist(s1, s2)) {
-            System.out.println("login successful");
-            comment.setText("valid");
+            if(s1.equals("admin")){
+                changeToAdminView(event);
+            }
+            else {
+                System.out.println("login successful");
+                comment.setText("valid");
 
-//            fetchInfo(s1);
+                fetchInfo(s1);
 
-            changeToUserView(event);
+                changeToUserView(event);
+            }
+
         } else comment.setText("invalid");
     }
 
@@ -62,6 +68,14 @@ public class LoginController {
         window.show();
     }
 
+    private void changeToAdminView(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("Admin.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(new Scene(parent));
+        window.setResizable(false);
+        window.show();
+    }
+
     private void fetchInfo(String phone) throws IOException {
         connectToServer();
 
@@ -71,7 +85,23 @@ public class LoginController {
         writer.write(phone + "\n");
         writer.flush();
 
+        writeToFile(phone);
+    }
 
+    private void writeToFile(String phone) throws IOException {
+        BufferedWriter bufferedWriter;
+        bufferedWriter = new BufferedWriter(new FileWriter("src/sample/individual.txt"));
+
+        bufferedWriter.write(phone+"\n");
+
+        String line = reader.readLine();
+
+        while (!line.equals("exit")) {
+            bufferedWriter.write(line + "\n");
+            bufferedWriter.flush();
+
+            line = reader.readLine();
+        }
 
     }
 
