@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Admin {
@@ -35,7 +36,12 @@ public class Admin {
         if(s1.isEmpty() || s2.isEmpty()){
             comment.setText("field can't be empty");
             return;
+        }if(!chkExist(s1)){
+            comment.setText("phone number doesn't exists");
+            return;
         }
+
+
 
         sendMoney(s1, s2);
         credit.clear();
@@ -80,6 +86,28 @@ public class Admin {
         window.setScene(new Scene(parent));
         window.setResizable(false);
         window.show();
+    }
+
+    private boolean chkExist(String s) throws IOException{
+        boolean isFileEmpty = false;
+
+        BufferedReader reader = new BufferedReader(new FileReader("src/sample/loginDetails.txt"));
+        if (reader.readLine() == null)
+            isFileEmpty = true;
+
+        if (isFileEmpty) return false;
+
+        FileInputStream stream = new FileInputStream("src/sample/loginDetails.txt");
+        ObjectInputStream inputStream = new ObjectInputStream(stream);
+
+        HashMap<String, String> hashMap = null;
+        try {
+            hashMap = (HashMap<String, String>) inputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            System.out.println("at line 91");
+        }
+
+        return hashMap.containsKey(s);
     }
 
 }
