@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 
 public class Withdraw {
     BufferedReader reader;
@@ -62,7 +63,7 @@ public class Withdraw {
     }
 
     private void changeToUserView(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("UserView.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserView.fxml")));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);

@@ -1,13 +1,20 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SignUpForm {
     BufferedReader reader;
@@ -60,6 +67,15 @@ public class SignUpForm {
 
 //        from here this part will take u to userForm
 //        write your code here ...
+    }
+
+    @FXML
+    void goBack(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginForm.fxml")));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(new Scene(parent));
+        window.setResizable(false);
+        window.show();
     }
 
     private void connectToServer() throws IOException {

@@ -34,5 +34,6 @@
             <Font size="25.0" />
          </font>
       </Label>
+      <Button layoutX="24.0" layoutY="21.0" mnemonicParsing="false" onAction="#goBack" prefHeight="48.0" prefWidth="118.0" text="back" />
    </children>
 </AnchorPane>

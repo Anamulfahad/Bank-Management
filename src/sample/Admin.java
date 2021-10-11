@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -23,24 +24,27 @@ public class Admin {
     private TextField credit;
 
     @FXML
+    private Label comment;
+
+    @FXML
     void cashIn(ActionEvent event) throws IOException {
         String s1 = number.getText();
         String s2 = credit.getText();
-        sendMoney("admin", s1, s2);
+        sendMoney(s1, s2);
     }
 
     @FXML
     void logOut(ActionEvent event) throws IOException {
-        changeScene(event, "LoginForm.fxml");
+        changeScene(event);
     }
 
-    private void sendMoney(String fromPhone, String toPhone, String amount) throws IOException {
+    private void sendMoney(String toPhone, String amount) throws IOException {
         connectToServer();
 
         writer.write("deposit\n");
         writer.flush();
 
-        writer.write(fromPhone + "\n");
+        writer.write("admin\n");
         writer.flush();
 
         writer.write(toPhone + "\n");
@@ -48,6 +52,8 @@ public class Admin {
 
         writer.write(amount + "\n");
         writer.flush();
+
+        comment.setText("task complete");
     }
 
     private void connectToServer() throws IOException {
@@ -60,8 +66,8 @@ public class Admin {
         writer = new BufferedWriter(outputStreamWriter);
     }
 
-    private void changeScene(ActionEvent event, String file) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource(file));
+    private void changeScene(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);
