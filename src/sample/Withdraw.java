@@ -32,6 +32,12 @@ public class Withdraw {
 
     @FXML
     void back(ActionEvent event) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("src/sample/individual.txt"));
+
+        String line1 = bufferedReader.readLine();
+
+        fetchInfo(line1);
+
         changeToUserView(event);
     }
 
@@ -84,6 +90,35 @@ public class Withdraw {
 
         writer.write(amount + "\n");
         writer.flush();
+    }
+
+    private void fetchInfo(String phone) throws IOException {
+        connectToServer();
+
+        writer.write("fetchInfo\n");
+        writer.flush();
+
+        writer.write(phone + "\n");
+        writer.flush();
+
+        writeToFile(phone);
+    }
+
+    private void writeToFile(String phone) throws IOException {
+        BufferedWriter bufferedWriter;
+        bufferedWriter = new BufferedWriter(new FileWriter("src/sample/individual.txt"));
+
+        bufferedWriter.write(phone+"\n");
+
+        String line = reader.readLine();
+
+        while (!line.equals("exit")) {
+            bufferedWriter.write(line + "\n");
+            bufferedWriter.flush();
+
+            line = reader.readLine();
+        }
+
     }
 
     private void connectToServer() throws IOException {

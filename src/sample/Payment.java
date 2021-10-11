@@ -31,6 +31,12 @@ public class Payment {
 
     @FXML
     void back(ActionEvent event) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("src/sample/individual.txt"));
+
+        String line1 = bufferedReader.readLine();
+
+        fetchInfo(line1);
+
         changeToUserView(event);
     }
 
@@ -53,7 +59,7 @@ public class Payment {
         if (s3.equals(line4)) {
             if (balance >= s2) {
                 sendMoney(line1, s1, s2 + "");
-                comment.setText("Sent Successfully!!");
+                comment.setText("Payment Successful!!");
             }
             else comment.setText("Insufficient Balance");
         }
@@ -93,6 +99,35 @@ public class Payment {
 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
         writer = new BufferedWriter(outputStreamWriter);
+    }
+
+    private void fetchInfo(String phone) throws IOException {
+        connectToServer();
+
+        writer.write("fetchInfo\n");
+        writer.flush();
+
+        writer.write(phone + "\n");
+        writer.flush();
+
+        writeToFile(phone);
+    }
+
+    private void writeToFile(String phone) throws IOException {
+        BufferedWriter bufferedWriter;
+        bufferedWriter = new BufferedWriter(new FileWriter("src/sample/individual.txt"));
+
+        bufferedWriter.write(phone+"\n");
+
+        String line = reader.readLine();
+
+        while (!line.equals("exit")) {
+            bufferedWriter.write(line + "\n");
+            bufferedWriter.flush();
+
+            line = reader.readLine();
+        }
+
     }
 
 
