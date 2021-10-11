@@ -1,20 +1,13 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class SignUpForm {
     BufferedReader reader;
@@ -35,8 +28,8 @@ public class SignUpForm {
 
     @FXML
     void signUp() throws IOException, ClassNotFoundException {
-        String s1 = name.getText().trim();
-        String s2 = phoneNumber.getText().trim();
+        String s1 = name.getText();
+        String s2 = phoneNumber.getText();
         String s3 = password.getText();
 
 //        check if the phone number exists in database
@@ -63,19 +56,8 @@ public class SignUpForm {
         LoginSupport loginSupport = new LoginSupport();
         loginSupport.addAccount(s2, s3);
 
-        comment.setText("account added");
-
 //        from here this part will take u to userForm
 //        write your code here ...
-    }
-
-    @FXML
-    void goBack(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginForm.fxml")));
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(new Scene(parent));
-        window.setResizable(false);
-        window.show();
     }
 
     private void connectToServer() throws IOException {
@@ -88,7 +70,7 @@ public class SignUpForm {
         writer = new BufferedWriter(outputStreamWriter);
     }
 
-    private boolean chkExist(String s) throws IOException{
+    private boolean chkExist(String s) throws IOException, ClassNotFoundException {
         boolean isFileEmpty = false;
 
         BufferedReader reader = new BufferedReader(new FileReader("src/sample/loginDetails.txt"));
@@ -100,12 +82,7 @@ public class SignUpForm {
         FileInputStream stream = new FileInputStream("src/sample/loginDetails.txt");
         ObjectInputStream inputStream = new ObjectInputStream(stream);
 
-        HashMap<String, String> hashMap = null;
-        try {
-            hashMap = (HashMap<String, String>) inputStream.readObject();
-        } catch (ClassNotFoundException e) {
-            System.out.println("at line 91");
-        }
+        HashMap<String, String> hashMap = (HashMap<String, String>) inputStream.readObject();
 
         return hashMap.containsKey(s);
     }

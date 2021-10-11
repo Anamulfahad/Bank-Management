@@ -12,7 +12,10 @@
          <font>
             <Font size="25.0" />
          </font></TextField>
-      <TextField fx:id="credit" layoutX="424.0" layoutY="191.0" prefHeight="54.0" prefWidth="414.0" promptText="Credit" />
+      <TextField fx:id="credit" layoutX="424.0" layoutY="191.0" prefHeight="54.0" prefWidth="414.0" promptText="Credit">
+         <font>
+            <Font size="25.0" />
+         </font></TextField>
       <Button layoutX="632.0" layoutY="342.0" mnemonicParsing="false" onAction="#cashIn" prefHeight="54.0" prefWidth="208.0" text="Cash In" />
       <Button layoutX="392.0" layoutY="510.0" mnemonicParsing="false" onAction="#logOut" prefHeight="54.0" prefWidth="116.0" text="Log Out" />
       <Label fx:id="comment" alignment="CENTER" layoutX="425.0" layoutY="273.0" prefHeight="54.0" prefWidth="414.0" text="Label">
