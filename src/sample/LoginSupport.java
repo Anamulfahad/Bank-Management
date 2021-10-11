@@ -50,11 +50,4 @@ public class LoginSupport {
         outputStream.writeObject(hashMap);
         outputStream.close();
     }
-
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        LoginSupport a = new LoginSupport();
-//        System.out.println(a.accountExist("as", "as"));
-        a.addAccount("1", "1");
-    }
 }
