@@ -50,6 +50,10 @@ public class Withdraw {
             comment.setText("field can't be empty");
             return;
         }
+        if(!s1.equals("admin")){
+            comment.setText("merchant should be admin");
+            return;
+        }
 
         double s2 = Double.parseDouble(x);
 
