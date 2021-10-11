@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 
 public class SendMoney {
     BufferedReader reader;
@@ -36,16 +37,20 @@ public class SendMoney {
         String line1 = bufferedReader.readLine();
 
         fetchInfo(line1);
-
         changeToUserView(event);
-
     }
 
     @FXML
-    void send(ActionEvent event) throws IOException {
-        String s1 = number.getText();
-        double s2 = Double.parseDouble(amount.getText());
-        String s3 = password.getText();
+    void send() throws IOException {
+        String s1 = number.getText().trim();
+        String a = amount.getText().trim();
+        String s3 = password.getText().trim();
+
+        if(s1.isEmpty() || s3.isEmpty() || a.isEmpty()){
+            comment.setText("field can't be empty");
+            return;
+        }
+        double s2 = Double.parseDouble(a);
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader("src/sample/individual.txt"));
 
@@ -69,7 +74,7 @@ public class SendMoney {
     }
 
     private void changeToUserView(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("UserView.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserView.fxml")));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);

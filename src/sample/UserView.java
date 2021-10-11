@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 public class UserView {
 
@@ -30,7 +31,8 @@ public class UserView {
     public void initialize() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader("src/sample/individual.txt"));
 
-        String line = bufferedReader.readLine();
+        bufferedReader.readLine();
+        String line;
 
         line = bufferedReader.readLine();
         name.setText(line);
@@ -57,8 +59,25 @@ public class UserView {
     }
 
     @FXML
-    void statement(ActionEvent event) throws IOException {
+    void statement() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("src/sample/individual.txt"));
 
+//        trimming redundant lines
+        bufferedReader.readLine();
+        bufferedReader.readLine();
+        bufferedReader.readLine();
+        bufferedReader.readLine();
+
+        String line = bufferedReader.readLine();
+        if(line == null)
+            showStatement.setText("no statements found");
+        else {
+            showStatement.clear();
+            while (line != null) {
+                showStatement.appendText(line + "\n");
+                line = bufferedReader.readLine();
+            }
+        }
     }
 
     @FXML
@@ -66,8 +85,8 @@ public class UserView {
         changeScene(event, "Withdraw.fxml");
     }
 
-    private void changeScene(ActionEvent event, String file) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource(file));
+    private void changeScene(ActionEvent event, String fxmlFile) throws IOException {
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);

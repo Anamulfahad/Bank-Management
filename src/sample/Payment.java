@@ -36,15 +36,20 @@ public class Payment {
         String line1 = bufferedReader.readLine();
 
         fetchInfo(line1);
-
         changeToUserView(event);
     }
 
     @FXML
     void payment(ActionEvent event) throws IOException {
-        String s1 = number.getText();
-        double s2 = Double.parseDouble(amount.getText());
+        String s1 = number.getText().trim();
+        String a = amount.getText().trim();
         String s3 = password.getText();
+
+        if(s1.isEmpty() || s3.isEmpty() || a.isEmpty()){
+            comment.setText("field can't be empty");
+            return;
+        }
+        double s2 = Double.parseDouble(a);
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader("src/sample/individual.txt"));
 

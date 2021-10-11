@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 
 public class LoginController {
     BufferedReader reader;
@@ -29,8 +30,13 @@ public class LoginController {
 
     @FXML
     private void logIn(ActionEvent event) throws IOException, ClassNotFoundException {
-        String s1 = phoneNumber.getText();
-        String s2 = password.getText();
+        String s1 = phoneNumber.getText().trim();
+        String s2 = password.getText().trim();
+
+        if(s1.isEmpty() || s2.isEmpty()){
+            comment.setText("field can't be empty");
+            return;
+        }
 
         password.clear();
 
@@ -44,7 +50,6 @@ public class LoginController {
                 comment.setText("valid");
 
                 fetchInfo(s1);
-
                 changeToUserView(event);
             }
 
@@ -53,7 +58,7 @@ public class LoginController {
 
     @FXML
     private void newAccount(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("SignUpForm.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpForm.fxml")));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);
@@ -61,7 +66,7 @@ public class LoginController {
     }
 
     private void changeToUserView(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("UserView.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserView.fxml")));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);
@@ -69,7 +74,7 @@ public class LoginController {
     }
 
     private void changeToAdminView(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("Admin.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin.fxml")));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);

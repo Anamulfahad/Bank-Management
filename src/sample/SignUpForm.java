@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,7 +11,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.HashMap;
@@ -38,6 +38,12 @@ public class SignUpForm {
         String s1 = name.getText().trim();
         String s2 = phoneNumber.getText().trim();
         String s3 = password.getText();
+
+        if(s1.isEmpty() || s2.isEmpty() || s3.isEmpty()){
+            comment.setText("field can't be empty");
+            return;
+        }
+
 
 //        check if the phone number exists in database
         if (chkExist(s2)) {
@@ -67,6 +73,7 @@ public class SignUpForm {
 
 //        from here this part will take u to userForm
 //        write your code here ...
+
     }
 
     @FXML
@@ -109,6 +116,4 @@ public class SignUpForm {
 
         return hashMap.containsKey(s);
     }
-
-
 }

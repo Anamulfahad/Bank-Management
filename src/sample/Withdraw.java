@@ -37,15 +37,21 @@ public class Withdraw {
         String line1 = bufferedReader.readLine();
 
         fetchInfo(line1);
-
         changeToUserView(event);
     }
 
     @FXML
-    void withdraw(ActionEvent event) throws IOException {
-        String s1 = number.getText();
-        double s2 = Double.parseDouble(amount.getText());
-        String s3 = password.getText();
+    void withdraw() throws IOException {
+        String s1 = number.getText().trim();
+        String x = amount.getText().trim();
+        String s3 = password.getText().trim();
+
+        if(s1.isEmpty() || s3.isEmpty() || x.isEmpty()){
+            comment.setText("field can't be empty");
+            return;
+        }
+
+        double s2 = Double.parseDouble(x);
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader("src/sample/individual.txt"));
 

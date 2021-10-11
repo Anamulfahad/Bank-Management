@@ -1,6 +1,6 @@
 123
 amit
-300.0
+1270.0
 123
 deposit From admin to 123 credit 50.0
 deposit From admin to 123 credit 500.0
@@ -17,3 +17,11 @@ withdrawal 30.0
 deposit From 123 to 01906 credit 30.0
 withdrawal 50.0
 deposit From 123 to 01906 credit 50.0
+deposit From admin to 123 credit 10.0
+withdrawal 50.0
+deposit From 123 to admin credit 50.0
+deposit From admin to 123 credit 1000.0
+deposit From admin to 123 credit 10.0
+deposit From admin to 123 credit 10.0
+withdrawal 10.0
+deposit From 123 to admin credit 10.0

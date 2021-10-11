@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 
 public class Admin {
     BufferedReader reader;
@@ -27,10 +28,17 @@ public class Admin {
     private Label comment;
 
     @FXML
-    void cashIn(ActionEvent event) throws IOException {
-        String s1 = number.getText();
-        String s2 = credit.getText();
+    void cashIn() throws IOException {
+        String s1 = number.getText().trim();
+        String s2 = credit.getText().trim();
+
+        if(s1.isEmpty() || s2.isEmpty()){
+            comment.setText("field can't be empty");
+            return;
+        }
+
         sendMoney(s1, s2);
+        credit.clear();
     }
 
     @FXML
@@ -67,7 +75,7 @@ public class Admin {
     }
 
     private void changeScene(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginForm.fxml")));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(new Scene(parent));
         window.setResizable(false);
