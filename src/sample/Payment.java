@@ -68,6 +68,11 @@ public class Payment {
         String line4 = bufferedReader.readLine();
 
         if (s3.equals(line4)) {
+            if(line1.equals(s1)){
+                comment.setText("pay money to other than own number");
+                return;
+            }
+
             if (balance >= s2) {
                 sendMoney(line1, s1, s2 + "");
                 comment.setText("Payment Successful!!");
