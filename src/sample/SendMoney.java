@@ -69,13 +69,19 @@ public class SendMoney {
 
         String line4 = bufferedReader.readLine();
 
+
         if (s3.equals(line4)) {
+            if(line1.equals(s1)){
+                comment.setText("send money other than own number");
+                return;
+            }
+
             if (balance >= s2) {
                 sendMoney(line1, s1, s2 + "");
                 comment.setText("Sent Successfully!!");
             }
             else comment.setText("Insufficient Balance");
-        }
+        }else comment.setText("password match failed");
 
         bufferedReader.close();
     }
